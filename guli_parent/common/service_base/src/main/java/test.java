@@ -11,6 +11,6 @@ public class test {
      * @Return void
      */
     public void test(){
-
+        System.out.println("demo");
     }
 }
