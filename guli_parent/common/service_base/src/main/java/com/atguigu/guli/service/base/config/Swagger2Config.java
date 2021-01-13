@@ -15,6 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @ClassName Swagger2Config
  * @Author zengyihang
  * @Date: 2021-01-13 10:40
+ * http://localhost:8110/swagger-ui.html
  */
 @Configuration
 @EnableSwagger2
@@ -29,7 +30,6 @@ public class Swagger2Config {
                 //只显示api路径下的页面
                 .paths(Predicates.and(PathSelectors.regex("/api/.*")))
                 .build();
-
     }
 
     @Bean
@@ -41,7 +41,6 @@ public class Swagger2Config {
                 //只显示admin路径下的页面
                 .paths(Predicates.and(PathSelectors.regex("/admin/.*")))
                 .build();
-
     }
 
     private ApiInfo webApiInfo(){
