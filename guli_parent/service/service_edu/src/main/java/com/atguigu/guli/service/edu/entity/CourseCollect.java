@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author Kenneth
- * @since 2021-01-12
+ * @since 2021-01-13
  */
 @TableName("edu_course_collect")
 @ApiModel(value="CourseCollect对象", description="课程收藏")
