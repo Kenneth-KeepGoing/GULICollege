@@ -22,6 +22,7 @@ import java.util.List;
  * @author Kenneth
  * @since 2021-01-12
  */
+@CrossOrigin //允许跨域请求
 @RestController
 @RequestMapping("/admin/edu/teacher")
 public class TeacherController {
