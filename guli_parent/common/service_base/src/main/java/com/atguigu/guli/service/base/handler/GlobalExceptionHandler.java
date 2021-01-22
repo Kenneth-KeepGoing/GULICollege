@@ -3,8 +3,9 @@ package com.atguigu.guli.service.base.handler;
 import com.atguigu.guli.common.base.result.ResultCodeEnum;
 import com.atguigu.guli.common.base.result.ResultData;
 import com.atguigu.guli.common.base.util.ExceptionUtils;
+import com.atguigu.guli.service.base.exception.GuliException;
+
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,10 +36,10 @@ public class GlobalExceptionHandler {
         return ResultData.setResult(ResultCodeEnum.BAD_SQL_GRAMMAR);
     }
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ExceptionHandler(GuliException.class)
     @ResponseBody
-    public ResultData error(HttpMessageNotReadableException e){
+    public ResultData error(GuliException e){
         log.error(ExceptionUtils.getMessage(e));
-        return ResultData.setResult(ResultCodeEnum.JSON_PARSE_ERROR);
+        return ResultData.error().message(e.getMessage()).code(e.getCode());
     }
 }
