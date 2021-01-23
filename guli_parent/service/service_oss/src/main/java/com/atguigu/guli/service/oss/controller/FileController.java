@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: Zyh
@@ -45,5 +46,22 @@ public class FileController {
         } catch (IOException e) {
             throw new GuliException(ResultCodeEnum.FILE_UPLOAD_ERROR);
         }
+    }
+
+    @DeleteMapping("remove")
+    public ResultData removeFile(@RequestBody String url) {
+        fileService.removeFile(url);
+        return ResultData.ok().message("文件刪除成功");
+    }
+
+    @GetMapping("test")
+    public ResultData test() {
+        log.info("oss test被调用");
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            throw new GuliException(ResultCodeEnum.TIME_OUT);
+        }
+        return ResultData.ok();
     }
 }

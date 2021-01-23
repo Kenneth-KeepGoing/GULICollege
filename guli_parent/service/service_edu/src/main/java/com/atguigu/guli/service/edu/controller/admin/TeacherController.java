@@ -1,17 +1,23 @@
 package com.atguigu.guli.service.edu.controller.admin;
 
 
+import com.atguigu.guli.common.base.result.ResultCodeEnum;
 import com.atguigu.guli.common.base.result.ResultData;
+import com.atguigu.guli.service.base.exception.GuliException;
 import com.atguigu.guli.service.edu.entity.Teacher;
 import com.atguigu.guli.service.edu.entity.vo.TeacherQueryVo;
+import com.atguigu.guli.service.edu.feign.OssFileService;
 import com.atguigu.guli.service.edu.service.TeacherService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sun.istack.internal.NotNull;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -24,11 +30,15 @@ import java.util.List;
  */
 @CrossOrigin //允许跨域请求
 @RestController
+@Slf4j
 @RequestMapping("/admin/edu/teacher")
 public class TeacherController {
 
     @Autowired
     private TeacherService teacherService;
+
+    @Autowired
+    private OssFileService ossFileService;
 
     @GetMapping("list")
     public ResultData listAll(){
@@ -38,6 +48,9 @@ public class TeacherController {
 
     @DeleteMapping("remove/{id}")
     public ResultData removeById(@PathVariable String id){
+        //删除图片
+        teacherService.removeAvatarById(id);
+        //删除讲师
         boolean result = teacherService.removeById(id);
         if(result){
             return ResultData.ok().message("删除成功");
@@ -81,5 +94,43 @@ public class TeacherController {
             return ResultData.error().message("数据不存在");
         }
     }
+
+    @DeleteMapping("batchRemove")
+    public ResultData batchRemove(@RequestBody List<String> idList){
+        boolean result = teacherService.removeByIds(idList);
+        if(result){
+            return ResultData.ok().message("删除成功");
+        }else {
+            return ResultData.error().message("数据不存在");
+        }
+    }
+
+
+    @GetMapping("list/name/{key}")
+    public ResultData selectNameListByKey(@PathVariable String key){
+        List<Map<String, Object>> nameList = teacherService.selectNameListByKey(key);
+        return ResultData.ok().data("nameList", nameList);
+    }
+
+
+    @GetMapping("test")
+    public ResultData test(){
+        try {
+            ossFileService.test();
+            log.info("test");
+        } catch (Exception e) {
+            throw new GuliException(ResultCodeEnum.TIME_OUT);
+        }
+        return ResultData.ok();
+    }
+
+    @ApiOperation("测试并发")
+    @GetMapping("test_concurrent")
+    public ResultData testConcurrent(){
+        log.info("test_concurrent");
+        return ResultData.ok();
+    }
+
+
 }
 
