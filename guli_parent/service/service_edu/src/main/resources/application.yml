@@ -20,6 +20,12 @@ spring:
     nacos:
       discovery:
         server-addr: 39.108.236.154:8848 # nacos服务地址
+        ip: 192.168.10.30
+    sentinel:
+      transport:
+        port: 8088 #跟控制台交流的端口，随意指定一个未使用的端口即可
+        dashboard: 39.108.236.154:8080 # 指定控制台服务的地址
+
 
 #service-oss: # 调用的提供者的名称
 #  ribbon:

@@ -131,6 +131,15 @@ public class TeacherController {
         return ResultData.ok();
     }
 
+    @GetMapping("/message1")
+    public String message1() {
+        return "message1";
+    }
+
+    @GetMapping("/message2")
+    public String message2() {
+        return "message2";
+    }
 
 }
 
