@@ -8,6 +8,7 @@ import java.io.Serializable;
  * @Date: 2021-01-13 11:41
  */
 public class TeacherQueryVo implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     private String name;

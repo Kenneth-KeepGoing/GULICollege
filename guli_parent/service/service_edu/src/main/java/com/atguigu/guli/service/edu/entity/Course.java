@@ -22,6 +22,24 @@ public class Course extends BaseEntity {
 
     private static final long serialVersionUID=1L;
 
+    /**
+     * 课程状态 Draft未发布
+     */
+    public static final String COURSE_DRAFT = "Draft";
+
+    /**
+     * 课程状态 Normal已发布
+     */
+    public static final String COURSE_NORMAL = "Normal";
+
+    public static String getCourseDraft() {
+        return COURSE_DRAFT;
+    }
+
+    public static String getCourseNormal() {
+        return COURSE_NORMAL;
+    }
+
     @ApiModelProperty(value = "课程讲师ID")
     private String teacherId;
 
