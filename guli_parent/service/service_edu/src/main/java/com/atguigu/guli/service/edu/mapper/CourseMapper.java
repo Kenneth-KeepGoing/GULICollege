@@ -1,6 +1,7 @@
 package com.atguigu.guli.service.edu.mapper;
 
 import com.atguigu.guli.service.edu.entity.Course;
+import com.atguigu.guli.service.edu.entity.vo.CoursePublishVo;
 import com.atguigu.guli.service.edu.entity.vo.CourseVo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -26,4 +27,6 @@ public interface CourseMapper extends BaseMapper<Course> {
             //mp会自动组装queryWrapper：
             //@Param(Constants.WRAPPER) 和 xml文件中的 ${ew.customSqlSegment} 对应
             @Param(Constants.WRAPPER) QueryWrapper<CourseVo> queryWrapper);
+
+    CoursePublishVo selectCoursePublishVoById(String id);
 }
