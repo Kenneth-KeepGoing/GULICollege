@@ -13,7 +13,7 @@
         <version>2.2.2.RELEASE</version>
         <relativePath/>
     </parent>
-    <groupId>com.atguigu</groupId>
+    <groupId>com.kenneth</groupId>
     <artifactId>guli_parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>guli_parent</name>
