@@ -62,26 +62,23 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, Chapter> impl
         List<Video> videoList = videoMapper.selectList(queryWrapperVideo);
 
         //填充列表数据：Chapter列表
-        for (int i = 0; i < chapterList.size(); i++) {
-            Chapter chapter = chapterList.get(i);
-
+        chapterList.forEach(chapter -> {
             //创建ChapterVo对象
             ChapterVo chapterVo = new ChapterVo();
             BeanUtils.copyProperties(chapter, chapterVo);
-            chapterVoList.add(chapterVo);
-
-            //填充列表数据：Video列表
             List<VideoVo> videoVoList = new ArrayList<>();
-            for (int j = 0; j < videoList.size(); j++) {
-                Video video = videoList.get(j);
+            //填充列表数据：Video列表
+            videoList.forEach(video -> {
                 if(chapter.getId().equals(video.getChapterId())){
                     VideoVo videoVo = new VideoVo();
                     BeanUtils.copyProperties(video, videoVo);
                     videoVoList.add(videoVo);
                 }
-            }
+            });
             chapterVo.setChildren(videoVoList);
-        }
+            chapterVoList.add(chapterVo);
+        });
+
         return chapterVoList;
     }
 }

@@ -1,13 +1,9 @@
 package com.kenneth.guli.common.base.result;
 
-import lombok.ToString;
-
 /**
  * @author Kenneth
  * @since 2021/1/13
  */
-
-@ToString
 public enum ResultCodeEnum {
 
     SUCCESS(true, 20000,"成功"),
@@ -80,5 +76,14 @@ public enum ResultCodeEnum {
 
     public String getMessage() {
         return message;
+    }
+
+    @Override
+    public String toString() {
+        return "ResultCodeEnum{" +
+                "success=" + success +
+                ", code=" + code +
+                ", message='" + message + '\'' +
+                '}';
     }
 }

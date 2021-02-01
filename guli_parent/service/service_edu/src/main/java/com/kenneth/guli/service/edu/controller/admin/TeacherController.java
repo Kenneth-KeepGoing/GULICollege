@@ -10,7 +10,7 @@ import com.kenneth.guli.service.edu.feign.OssFileService;
 import com.kenneth.guli.service.edu.service.TeacherService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sun.istack.internal.NotNull;
+import javax.validation.constraints.NotNull;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
