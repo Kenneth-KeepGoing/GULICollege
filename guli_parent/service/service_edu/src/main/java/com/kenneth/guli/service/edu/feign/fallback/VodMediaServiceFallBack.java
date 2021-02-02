@@ -6,6 +6,8 @@ import com.kenneth.guli.service.edu.feign.VodMediaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @ClassName VodMediaServiceFallBack
  * @Author zengyihang
@@ -18,5 +20,11 @@ public class VodMediaServiceFallBack implements VodMediaService {
     public ResultData removeVideo(String vodId) {
         log.info("熔断保护");
         return ResultData.error();
+    }
+
+    @Override
+    public ResultData removeVideoByIdList(List<String> videoIdList) {
+        log.info("熔断保护");
+        return ResultData.error().message("调用超时");
     }
 }

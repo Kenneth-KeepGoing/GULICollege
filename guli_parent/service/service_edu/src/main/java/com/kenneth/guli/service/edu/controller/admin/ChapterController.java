@@ -5,6 +5,7 @@ import com.kenneth.guli.common.base.result.ResultData;
 import com.kenneth.guli.service.edu.entity.Chapter;
 import com.kenneth.guli.service.edu.entity.vo.ChapterVo;
 import com.kenneth.guli.service.edu.service.ChapterService;
+import com.kenneth.guli.service.edu.service.VideoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,9 @@ public class ChapterController {
 
     @Resource
     private ChapterService chapterService;
+
+    @Resource
+    private VideoService videoService;
 
     /**
      * 新增章节
@@ -81,8 +85,9 @@ public class ChapterController {
      */
     @DeleteMapping("remove/{id}")
     public ResultData removeById(@PathVariable String id){
-        //TODO 删除视频：VOD
+
         //在此处调用vod中的删除视频文件的接口
+        videoService.removeMediaVideoByChapterId(id);
 
         boolean result = chapterService.removeChapterById(id);
         if (result) {

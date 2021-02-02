@@ -6,6 +6,9 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 /**
  * @ClassName VodMediaService
@@ -19,4 +22,7 @@ public interface VodMediaService {
 
     @DeleteMapping("/admin/vod/media/remove/{vodId}")
     ResultData removeVideo(@PathVariable("vodId") String vodId);
+
+    @DeleteMapping("/admin/vod/media/remove")
+    ResultData removeVideoByIdList(@RequestBody List<String> videoIdList);
 }

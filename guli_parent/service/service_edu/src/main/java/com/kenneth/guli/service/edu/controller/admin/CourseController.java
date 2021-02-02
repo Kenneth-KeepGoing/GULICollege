@@ -8,6 +8,7 @@ import com.kenneth.guli.service.edu.entity.vo.CourseQueryVo;
 import com.kenneth.guli.service.edu.entity.vo.CourseVo;
 import com.kenneth.guli.service.edu.service.CourseService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.kenneth.guli.service.edu.service.VideoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,8 @@ public class CourseController {
     @Resource
     private CourseService courseService;
 
+    @Resource
+    private VideoService videoService;
     /**
      * 插入课程信息
      */
@@ -80,11 +83,12 @@ public class CourseController {
      */
     @DeleteMapping("remove/{id}")
     public ResultData removeById(@PathVariable String id){
-        //TODO 删除视频：VOD
-        //在此处调用vod中的删除视频文件的接口
+        //删除视频：VOD
+        videoService.removeMediaVideoByCourseId(id);
 
         //删除封面：OSS
         courseService.removeCoverById(id);
+
         //删除课程
         boolean result = courseService.removeCourseById(id);
         if (result) {

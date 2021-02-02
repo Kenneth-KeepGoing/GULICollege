@@ -1,13 +1,17 @@
 package com.kenneth.guli.service.edu.controller.admin;
 
 
+import com.kenneth.guli.common.base.result.ResultCodeEnum;
 import com.kenneth.guli.common.base.result.ResultData;
+import com.kenneth.guli.common.base.util.ExceptionUtils;
+import com.kenneth.guli.service.base.exception.GuliException;
 import com.kenneth.guli.service.edu.entity.Video;
 import com.kenneth.guli.service.edu.service.VideoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -77,10 +81,8 @@ public class VideoController {
      */
     @DeleteMapping("remove/{id}")
     public ResultData removeById(@PathVariable String id){
-
         //在此处调用vod中的删除视频文件的接口
         videoService.removeMediaVideoById(id);
-
         boolean result = videoService.removeById(id);
         if (result) {
             return ResultData.ok().message("删除成功");

@@ -3,6 +3,7 @@ package com.kenneth.guli.service.vod.service;
 import com.aliyuncs.exceptions.ClientException;
 
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * @ClassName VideoService
@@ -24,4 +25,6 @@ public interface VideoService {
      * @throws ClientException
      */
     void removeVideo(String videoId) throws ClientException;
+
+    void removeVideoByIdList(List<String> videoIdList) throws ClientException;
 }

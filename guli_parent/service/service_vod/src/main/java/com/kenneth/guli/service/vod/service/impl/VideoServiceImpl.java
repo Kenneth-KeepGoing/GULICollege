@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * @ClassName VideoServiceImpl
@@ -64,6 +65,28 @@ public class VideoServiceImpl implements VideoService {
         DeleteVideoRequest request = new DeleteVideoRequest();
         request.setVideoIds(videoId);
         client.getAcsResponse(request);
+    }
+
+    @Override
+    public void removeVideoByIdList(List<String> videoIdList) throws ClientException {
+        //初始化client对象
+        DefaultAcsClient client = AliyunVodSDKUtils.initVodClient(vodProperties.getKeyid(), vodProperties.getKeysecret());
+        DeleteVideoRequest request = new DeleteVideoRequest();
+
+        int size = videoIdList.size();
+        StringBuffer idListStr = new StringBuffer();
+        for (int i = 0; i < size; i++) {
+            idListStr.append(videoIdList.get(i));
+            if(i == size -1 || i % 20 == 19){
+                System.out.println("idListStr = " + idListStr.toString());
+                //支持传入多个视频ID，多个用逗号分隔，最多20个
+                request.setVideoIds(idListStr.toString());
+                client.getAcsResponse(request);
+                idListStr = new StringBuffer();
+            }else if(i % 20 < 19){
+                idListStr.append(",");
+            }
+        }
     }
 
 }
