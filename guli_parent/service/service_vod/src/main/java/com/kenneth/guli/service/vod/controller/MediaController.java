@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * @ClassName MediaController
@@ -28,6 +29,11 @@ public class MediaController {
     @Resource
     private VideoService videoService;
 
+    /**
+     * 上传视频
+     * @param file
+     * @return
+     */
     @PostMapping("upload")
     public ResultData uploadVideo(@RequestParam("file") MultipartFile file) {
         try {
@@ -51,6 +57,22 @@ public class MediaController {
         try {
             videoService.removeVideo(vodId);
             return ResultData.ok().message("视频删除成功");
+        } catch (Exception e) {
+            log.error(ExceptionUtils.getMessage(e));
+            throw new GuliException(ResultCodeEnum.VIDEO_DELETE_ALIYUN_ERROR);
+        }
+    }
+
+    /**
+     * 批量删除
+     * @param videoIdList
+     * @return
+     */
+    @DeleteMapping("remove")
+    public ResultData removeVideoByIdList(@RequestBody List<String> videoIdList){
+        try {
+            videoService.removeVideoByIdList(videoIdList);
+            return  ResultData.ok().message("视频删除成功");
         } catch (Exception e) {
             log.error(ExceptionUtils.getMessage(e));
             throw new GuliException(ResultCodeEnum.VIDEO_DELETE_ALIYUN_ERROR);

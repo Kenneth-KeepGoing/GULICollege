@@ -26,5 +26,10 @@ public interface VideoService {
      */
     void removeVideo(String videoId) throws ClientException;
 
+    /**
+     * 批量删除视频
+     * @param videoIdList
+     * @throws ClientException
+     */
     void removeVideoByIdList(List<String> videoIdList) throws ClientException;
 }
