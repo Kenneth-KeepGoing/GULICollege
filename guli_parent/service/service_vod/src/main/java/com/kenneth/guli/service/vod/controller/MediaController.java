@@ -43,7 +43,7 @@ public class MediaController {
 
     /**
      * 删除视频
-     * @param vodIdVodMediaService
+     * @param vodId
      * @return
      */
     @DeleteMapping("remove/{vodId}")
