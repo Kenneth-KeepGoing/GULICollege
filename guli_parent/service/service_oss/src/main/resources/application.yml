@@ -22,3 +22,4 @@ aliyun:
     keysecret: Ud1CtBTjny5qn2kNq2J0hYC9MBDLz4
     #bucket可以在控制台创建，也可以使用java代码创建，注意先测试bucket是否已被占用
     bucketname: guli-file-kenneth
+

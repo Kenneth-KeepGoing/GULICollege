@@ -32,4 +32,6 @@ public interface VideoService {
      * @throws ClientException
      */
     void removeVideoByIdList(List<String> videoIdList) throws ClientException;
+
+    String getPlayAuth(String videoSourceId) throws ClientException;
 }

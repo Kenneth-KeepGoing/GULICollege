@@ -19,7 +19,6 @@ import java.util.List;
  * @Author zengyihang
  * @Date: 2021-02-02 11:43
  */
-
 @CrossOrigin //跨域
 @RestController
 @RequestMapping("/admin/vod/media")
