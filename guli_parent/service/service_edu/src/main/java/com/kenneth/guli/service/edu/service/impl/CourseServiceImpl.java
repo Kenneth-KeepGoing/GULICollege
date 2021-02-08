@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -251,5 +252,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return baseMapper.selectWebCourseVoById(id);
     }
 
-
+    @Cacheable(value = "index" ,key = "'selectHotCourse'")//注意分号规范
+    @Override
+    public List<Course> selectHotCourse() {
+        QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("view_count");
+        queryWrapper.last("limit 8");
+        return baseMapper.selectList(queryWrapper);
+    }
 }

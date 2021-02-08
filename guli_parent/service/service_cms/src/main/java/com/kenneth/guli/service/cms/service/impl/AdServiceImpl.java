@@ -11,6 +11,7 @@ import com.kenneth.guli.service.cms.mapper.AdMapper;
 import com.kenneth.guli.service.cms.service.AdService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -55,5 +56,20 @@ public class AdServiceImpl extends ServiceImpl<AdMapper, Ad> implements AdServic
             }
         }
         return false;
+    }
+
+    /**
+     * @Cacheable
+     * 对方法返回结果进行缓存
+     * @param adTypeId
+     * @return
+     */
+    @Override
+    @Cacheable(value = "index" ,key = "'selectByAdTypeId'")//注意分号规范
+    public List<Ad> selectByAdTypeId(String adTypeId) {
+        QueryWrapper<Ad> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByAsc("sort", "id");
+        queryWrapper.eq("type_id", adTypeId);
+        return baseMapper.selectList(queryWrapper);
     }
 }
