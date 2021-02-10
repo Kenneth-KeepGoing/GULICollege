@@ -24,10 +24,11 @@ spring:
         min-idle: 0     #最小空闲连接，默认0
 
 #阿里云短信
+  ##TODO 更新模板数据
 aliyun:
   sms:
     regionId: cn-hangzhou
-    keyId: 你的keyid
-    keySecret: 你的keysecret
+    keyid: LTAI4G6HnxQarT5BAeYZNisN
+    keysecret: Ud1CtBTjny5qn2kNq2J0hYC9MBDLz4
     templateCode: 你的短信模板code
     signName: 你的短信模板签名
