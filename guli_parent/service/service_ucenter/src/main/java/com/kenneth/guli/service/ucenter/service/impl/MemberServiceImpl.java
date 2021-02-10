@@ -1,10 +1,20 @@
 package com.kenneth.guli.service.ucenter.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.kenneth.guli.common.base.result.ResultCodeEnum;
+import com.kenneth.guli.common.base.util.FormUtils;
+import com.kenneth.guli.common.base.util.MD5;
+import com.kenneth.guli.service.base.exception.GuliException;
 import com.kenneth.guli.service.ucenter.entity.Member;
 import com.kenneth.guli.service.ucenter.mapper.MemberMapper;
 import com.kenneth.guli.service.ucenter.service.MemberService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.kenneth.guli.service.ucenter.vo.RegisterVo;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -17,4 +27,52 @@ import org.springframework.stereotype.Service;
 @Service
 public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> implements MemberService {
 
+
+    @Resource
+    private RedisTemplate redisTemplate;
+
+    /**
+     * 会员注册
+     * @param registerVo
+     */
+    @Override
+    public void register(RegisterVo registerVo) {
+        String nickname = registerVo.getNickname();
+        String mobile = registerVo.getMobile();
+        String password = registerVo.getPassword();
+        String code = registerVo.getCode();
+
+        //校验参数
+        if (StringUtils.isEmpty(mobile)
+                || !FormUtils.isMobile(mobile)
+                || StringUtils.isEmpty(password)
+                || StringUtils.isEmpty(code)
+                || StringUtils.isEmpty(nickname)) {
+            throw new GuliException(ResultCodeEnum.PARAM_ERROR);
+        }
+
+        //校验验证码
+        String checkCode = (String)redisTemplate.opsForValue().get(mobile);
+        if(!code.equals(checkCode)){
+            throw new GuliException(ResultCodeEnum.CODE_ERROR);
+        }
+
+        //是否被注册
+        QueryWrapper<Member> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("mobile", mobile);
+        Integer count = baseMapper.selectCount(queryWrapper);
+        if(count > 0){
+            throw new GuliException(ResultCodeEnum.REGISTER_MOBLE_ERROR);
+        }
+
+        //注册
+        Member member = new Member();
+        member.setNickname(nickname);
+        member.setMobile(mobile);
+        member.setPassword(MD5.encrypt(password));
+        member.setDisabled(false);
+        //TODO 更换默认注册头像
+        member.setAvatar("https://guli-file-helen.oss-cn-beijing.aliyuncs.com/avatar/default.jpg");
+        baseMapper.insert(member);
+    }
 }
