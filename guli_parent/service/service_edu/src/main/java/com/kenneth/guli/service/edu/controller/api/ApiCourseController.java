@@ -1,6 +1,7 @@
 package com.kenneth.guli.service.edu.controller.api;
 
 import com.kenneth.guli.common.base.result.ResultData;
+import com.kenneth.guli.service.base.dto.CourseDto;
 import com.kenneth.guli.service.edu.entity.Course;
 import com.kenneth.guli.service.edu.entity.vo.ChapterVo;
 import com.kenneth.guli.service.edu.entity.vo.WebCourseQueryVo;
@@ -54,5 +55,27 @@ public class ApiCourseController {
         List<ChapterVo> chapterVoList = chapterService.nestedList(courseId);
 
         return ResultData.ok().data("course", webCourseVo).data("chapterVoList", chapterVoList);
+    }
+
+    /**
+     * 根据课程id查询课程信息
+     * @param courseId
+     * @return
+     */
+    @GetMapping("inner/get-course-dto/{courseId}")
+    public CourseDto getCourseDtoById(@PathVariable String courseId){
+        CourseDto courseDto = courseService.getCourseDtoById(courseId);
+        return courseDto;
+    }
+
+    /**
+     * 根据课程id更改销售量
+     * @param id
+     * @return
+     */
+    @GetMapping("inner/update-buy-count/{id}")
+    public ResultData updateBuyCountById(@PathVariable String id){
+        courseService.updateBuyCountById(id);
+        return ResultData.ok();
     }
 }

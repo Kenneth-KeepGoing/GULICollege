@@ -1,7 +1,9 @@
 package com.kenneth.guli.service.ucenter.service;
 
+import com.kenneth.guli.service.base.dto.MemberDto;
 import com.kenneth.guli.service.ucenter.entity.Member;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.kenneth.guli.service.ucenter.vo.LoginVo;
 import com.kenneth.guli.service.ucenter.vo.RegisterVo;
 
 /**
@@ -15,4 +17,8 @@ import com.kenneth.guli.service.ucenter.vo.RegisterVo;
 public interface MemberService extends IService<Member> {
 
     void register(RegisterVo registerVo);
+
+    String login(LoginVo loginVo);
+
+    MemberDto getMemberDtoByMemberId(String memberId);
 }

@@ -1,6 +1,7 @@
 package com.kenneth.guli.service.edu.service.impl;
 
 import com.kenneth.guli.common.base.result.ResultData;
+import com.kenneth.guli.service.base.dto.CourseDto;
 import com.kenneth.guli.service.edu.entity.*;
 import com.kenneth.guli.service.edu.entity.form.CourseInfoForm;
 import com.kenneth.guli.service.edu.entity.vo.*;
@@ -259,5 +260,17 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         queryWrapper.orderByDesc("view_count");
         queryWrapper.last("limit 8");
         return baseMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public CourseDto getCourseDtoById(String courseId) {
+        return baseMapper.selectCourseDtoById(courseId);
+    }
+
+    @Override
+    public void updateBuyCountById(String id) {
+        Course course = baseMapper.selectById(id);
+        course.setBuyCount(course.getBuyCount() + 1);
+        this.updateById(course);
     }
 }

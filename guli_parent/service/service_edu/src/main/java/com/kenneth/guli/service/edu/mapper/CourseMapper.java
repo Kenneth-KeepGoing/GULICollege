@@ -1,5 +1,6 @@
 package com.kenneth.guli.service.edu.mapper;
 
+import com.kenneth.guli.service.base.dto.CourseDto;
 import com.kenneth.guli.service.edu.entity.Course;
 import com.kenneth.guli.service.edu.entity.vo.CoursePublishVo;
 import com.kenneth.guli.service.edu.entity.vo.CourseVo;
@@ -32,4 +33,6 @@ public interface CourseMapper extends BaseMapper<Course> {
     CoursePublishVo selectCoursePublishVoById(String id);
 
     WebCourseVo selectWebCourseVoById(String courseId);
+
+    CourseDto selectCourseDtoById(String courseId);
 }

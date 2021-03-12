@@ -1,5 +1,6 @@
 package com.kenneth.guli.service.edu.service;
 
+import com.kenneth.guli.service.base.dto.CourseDto;
 import com.kenneth.guli.service.edu.entity.Course;
 import com.kenneth.guli.service.edu.entity.form.CourseInfoForm;
 import com.kenneth.guli.service.edu.entity.vo.*;
@@ -44,4 +45,8 @@ public interface CourseService extends IService<Course> {
     WebCourseVo selectWebCourseVoById(String id);
 
     List<Course> selectHotCourse();
+
+    CourseDto getCourseDtoById(String courseId);
+
+    void updateBuyCountById(String id);
 }
