@@ -27,8 +27,8 @@ spring:
 #阿里云短信
 aliyun:
   sms:
-    regionId: cn-hangzhou
-    keyid: LTAI4G6HnxQarT5BAeYZNisN
-    keysecret: Ud1CtBTjny5qn2kNq2J0hYC9MBDLz4
-    templateCode: SMS_211491875
-    signName: kenneth博客
+    regionId: 
+    keyid: 
+    keysecret: 
+    templateCode: 
+    signName: 
