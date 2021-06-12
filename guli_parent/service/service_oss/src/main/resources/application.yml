@@ -17,9 +17,9 @@ spring:
 
 aliyun:
   oss:
-    endpoint: oss-cn-guangzhou.aliyuncs.com
-    keyid: LTAI4G6HnxQarT5BAeYZNisN
-    keysecret: Ud1CtBTjny5qn2kNq2J0hYC9MBDLz4
+    endpoint: 
+    keyid: 
+    keysecret:
     #bucket可以在控制台创建，也可以使用java代码创建，注意先测试bucket是否已被占用
-    bucketname: guli-file-kenneth
+    bucketname:
 
